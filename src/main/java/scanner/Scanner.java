@@ -17,7 +17,7 @@ public class Scanner {
     }
 
     private boolean isLetter(char ch) {
-        return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch == '.';
+        return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z';
     }
 
     private boolean isDigit(char ch) {

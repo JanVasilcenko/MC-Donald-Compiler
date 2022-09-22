@@ -7,8 +7,8 @@ public enum TokenKind {
 
     BURGER("burger"),
     CHEESE("cheese"),
-    EATIN("eat.in"),
-    EATOUT("eat.out"),
+    EATIN("eatIn"),
+    EATOUT("eatOut"),
     SHAKE("shake"),
 
     LEFTOPENING("<"),
