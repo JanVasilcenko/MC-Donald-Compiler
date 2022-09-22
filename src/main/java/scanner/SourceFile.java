@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class SourceFile {
     public static final char endOfLine = '\n';
-    public static final char endOfTransmission = 0;
+    public static final char endOfText = 0;
 
     private FileInputStream sourceFileInputStream;
 
@@ -23,11 +23,11 @@ public class SourceFile {
         try {
             int c = sourceFileInputStream.read();
             if (c < 0)
-                return endOfTransmission;
+                return endOfText;
             else
                 return (char) c;
         } catch (IOException ex) {
-            return endOfTransmission;
+            return endOfText;
         }
     }
 }

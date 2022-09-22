@@ -10,6 +10,7 @@ public enum TokenKind {
     EATIN("eatIn"),
     EATOUT("eatOut"),
     SHAKE("shake"),
+    MC("MC"),
 
     LEFTOPENING("<"),
     RIGHTOPENING(">"),

@@ -71,7 +71,7 @@ public class Token {
         return false;
     }
 
-    private static final TokenKind[] KEYWORDS = {TokenKind.BURGER, TokenKind.CHEESE, TokenKind.EATIN, TokenKind.EATOUT, TokenKind.SHAKE};
+    private static final TokenKind[] KEYWORDS = {TokenKind.BURGER, TokenKind.CHEESE, TokenKind.EATIN, TokenKind.EATOUT, TokenKind.SHAKE, TokenKind.MC};
     private static final String[] assignOperators =
             {
                     "ordered",

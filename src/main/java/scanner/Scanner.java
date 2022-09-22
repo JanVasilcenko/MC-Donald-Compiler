@@ -28,7 +28,7 @@ public class Scanner {
         switch (currentChar) {
             case '#':
                 takeIt();
-                while (currentChar != SourceFile.endOfLine && currentChar != SourceFile.endOfTransmission) {
+                while (currentChar != SourceFile.endOfLine && currentChar != SourceFile.endOfText) {
                     takeIt();
                 }
 
@@ -80,7 +80,7 @@ public class Scanner {
         } else if (currentChar == ')') {
             takeIt();
             return TokenKind.RIGHTPAREN;
-        } else if (currentChar == SourceFile.endOfTransmission) {
+        } else if (currentChar == SourceFile.endOfText) {
             return TokenKind.EOT;
         } else {
             takeIt();
