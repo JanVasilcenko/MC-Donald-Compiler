@@ -17,6 +17,7 @@ public enum TokenKind {
     SEMICOLON(";"),
     LEFTPAREN("("),
     RIGHTPAREN(")"),
+    ASTERISK("*"),
     EOT,
     ERROR;
 

@@ -2,11 +2,43 @@ package scanner;
 
 public class Token {
     public TokenKind kind;
-    public  String spelling;
+    public String spelling;
 
     public Token(TokenKind kind, String spelling) {
         this.kind = kind;
         this.spelling = spelling;
+
+        if (kind == TokenKind.IDENTIFIER) {
+            for (TokenKind tokenKind : KEYWORDS) {
+                if (spelling.equals(tokenKind.getSpelling())) {
+                    this.kind = tokenKind;
+                    break;
+                }
+            }
+
+            IsOperator();
+        }
+    }
+
+    private void IsOperator() {
+        for (String operator : addOperators) {
+            if (spelling.equals(operator)) {
+                this.kind = TokenKind.OPERATOR;
+                break;
+            }
+        }
+        for (String operator : assignOperators) {
+            if (spelling.equals(operator)) {
+                this.kind = TokenKind.OPERATOR;
+                break;
+            }
+        }
+        for (String operator : multiplicativeOperators) {
+            if (spelling.equals(operator)) {
+                this.kind = TokenKind.OPERATOR;
+                break;
+            }
+        }
     }
 
     public boolean isAssignOperator() {
@@ -39,6 +71,7 @@ public class Token {
         return false;
     }
 
+    private static final TokenKind[] KEYWORDS = {TokenKind.BURGER, TokenKind.CHEESE, TokenKind.EATIN, TokenKind.EATOUT, TokenKind.SHAKE};
     private static final String[] assignOperators =
             {
                     "ordered",

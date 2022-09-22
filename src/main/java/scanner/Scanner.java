@@ -17,7 +17,7 @@ public class Scanner {
     }
 
     private boolean isLetter(char ch) {
-        return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z';
+        return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch == '.';
     }
 
     private boolean isDigit(char ch) {
@@ -59,6 +59,27 @@ public class Scanner {
                 takeIt();
             }
             return TokenKind.INTEGERLITERAL;
+        } else if (currentChar == '*') {
+            takeIt();
+            return TokenKind.ASTERISK;
+        } else if (currentChar == '-') {
+            takeIt();
+            return TokenKind.DASH;
+        } else if (currentChar == ';') {
+            takeIt();
+            return TokenKind.SEMICOLON;
+        } else if (currentChar == '<') {
+            takeIt();
+            return TokenKind.LEFTOPENING;
+        } else if (currentChar == '>') {
+            takeIt();
+            return TokenKind.RIGHTOPENING;
+        } else if (currentChar == '(') {
+            takeIt();
+            return TokenKind.LEFTPAREN;
+        } else if (currentChar == ')') {
+            takeIt();
+            return TokenKind.RIGHTPAREN;
         } else if (currentChar == SourceFile.endOfTransmission) {
             return TokenKind.EOT;
         } else {
@@ -68,7 +89,7 @@ public class Scanner {
     }
 
     public Token scan() {
-        while (currentChar == '#' || currentChar == '\n' || currentChar == 'r' || currentChar == '\t' || currentChar == ' ') {
+        while (currentChar == '#' || currentChar == '\n' || currentChar == '\r' || currentChar == '\t' || currentChar == ' ') {
             scanSeparator();
         }
 
