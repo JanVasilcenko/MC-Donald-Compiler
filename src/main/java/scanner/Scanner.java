@@ -59,15 +59,18 @@ public class Scanner {
                 takeIt();
             }
             return TokenKind.INTEGERLITERAL;
-        } else if (currentChar == '*') {
+        } else if(currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
             takeIt();
-            return TokenKind.ASTERISK;
-        } else if (currentChar == '-') {
+            return TokenKind.OPERATOR;
+        } else if (currentChar == ',') {
             takeIt();
-            return TokenKind.DASH;
+            return TokenKind.COMMA;
         } else if (currentChar == ';') {
             takeIt();
             return TokenKind.SEMICOLON;
+        } else if (currentChar == '=') {
+            takeIt();
+            return TokenKind.OPERATOR;
         } else if (currentChar == '<') {
             takeIt();
             return TokenKind.LEFTOPENING;

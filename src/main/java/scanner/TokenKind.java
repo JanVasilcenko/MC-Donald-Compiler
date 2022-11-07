@@ -5,20 +5,24 @@ public enum TokenKind {
     INTEGERLITERAL,
     OPERATOR,
 
+    IMLOVINIT("ImLovinIt"),
     BURGER("burger"),
     CHEESE("cheese"),
     EATIN("eatIn"),
     EATOUT("eatOut"),
     SHAKE("shake"),
     MC("MC"),
+    NUGGETS("nuggets"),
+    ICE("ice"),
+    MEAL("meal"),
+    SERVE("serve"),
 
     LEFTOPENING("<"),
     RIGHTOPENING(">"),
-    DASH("-"),
+    COMMA(","),
     SEMICOLON(";"),
     LEFTPAREN("("),
     RIGHTPAREN(")"),
-    ASTERISK("*"),
     EOT,
     ERROR;
 
