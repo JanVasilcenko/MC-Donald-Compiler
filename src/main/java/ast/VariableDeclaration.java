@@ -1,0 +1,16 @@
+
+ 
+package ast;
+
+
+public class VariableDeclaration
+	extends Declaration
+{
+	public Identifier id;
+	
+	
+	public VariableDeclaration( Identifier id )
+	{
+		this.id = id;
+	}
+}

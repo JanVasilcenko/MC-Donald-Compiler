@@ -1,6 +1,6 @@
-package scanner;
+package compiler;
 
-import static scanner.TokenKind.*;
+import static compiler.TokenKind.*;
 
 public class Token {
     public TokenKind kind;

@@ -1,4 +1,5 @@
-import scanner.*;
+import ast.AST;
+import compiler.*;
 
 import javax.swing.*;
 
@@ -11,14 +12,32 @@ public class Main {
     {
         JFileChooser fc = new JFileChooser( EXAMPLES_DIR );
 
-        if( fc.showOpenDialog( null ) == JFileChooser.APPROVE_OPTION ) {
+        if( fc.showOpenDialog( null ) == fc.APPROVE_OPTION ) {
             SourceFile in = new SourceFile( fc.getSelectedFile().getAbsolutePath() );
             Scanner s = new Scanner( in );
             Parser p = new Parser( s );
 
-            p.parseProgram();
+            AST ast = p.parseProgram();
+
+            new ASTViewer( ast );
         }
     }
+
+//    private static final String EXAMPLES_DIR = "C:\\Uni\\Semester7\\CMC1\\MC Donald 1";
+//
+//
+//    public static void main( String args[] )
+//    {
+//        JFileChooser fc = new JFileChooser( EXAMPLES_DIR );
+//
+//        if( fc.showOpenDialog( null ) == JFileChooser.APPROVE_OPTION ) {
+//            SourceFile in = new SourceFile( fc.getSelectedFile().getAbsolutePath() );
+//            Scanner s = new Scanner( in );
+//            Parser p = new Parser( s );
+//
+//            p.parseProgram();
+//        }
+//    }
 
 //    private static final String SOURCEDIRECTORY = "C:\\Users\\Karrtii\\Downloads";
 //
