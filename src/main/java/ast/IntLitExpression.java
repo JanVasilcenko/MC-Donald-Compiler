@@ -12,4 +12,8 @@ public class IntLitExpression
 	{
 		this.literal = literal;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitIntLitExpression(this, arg);
+	}
 }

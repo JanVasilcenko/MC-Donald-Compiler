@@ -15,4 +15,8 @@ public class WhileStatement
 		this.exp = exp;
 		this.stats = stats;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitWhileStatement(this, arg);
+	}
 }

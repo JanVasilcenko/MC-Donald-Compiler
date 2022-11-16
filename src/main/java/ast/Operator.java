@@ -10,4 +10,8 @@ public class Operator
 	{
 		this.spelling = spelling;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitOperator(this, arg);
+	}
 }

@@ -13,4 +13,8 @@ public class SayStatement
 	{
 		this.exp = exp;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitSayStatement(this, arg);
+	}
 }

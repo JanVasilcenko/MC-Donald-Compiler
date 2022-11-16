@@ -10,4 +10,8 @@ public class Identifier
 	{
 		this.spelling = spelling;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitIdentifier(this, arg);
+	}
 }

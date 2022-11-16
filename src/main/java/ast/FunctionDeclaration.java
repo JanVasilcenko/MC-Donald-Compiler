@@ -3,6 +3,8 @@
 package ast;
 
 
+import encoder.Address;
+
 public class FunctionDeclaration
 	extends Declaration
 {
@@ -10,6 +12,7 @@ public class FunctionDeclaration
 	public Declarations params;
 	public Block block;
 	public Expression retExp;
+	public Address address;
 	
 	
 	public FunctionDeclaration( Identifier name, Declarations params,
@@ -19,5 +22,9 @@ public class FunctionDeclaration
 		this.params = params;
 		this.block = block;
 		this.retExp = retExp;
+	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitFunctionDeclaration(this, arg);
 	}
 }

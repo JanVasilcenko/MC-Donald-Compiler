@@ -15,4 +15,8 @@ public class UnaryExpression
 		this.operator = operator;
 		this.operand = operand;
 	}
+
+	public Object visit(Visitor visitor, Object arg) {
+		return visitor.visitUnaryExpression(this, arg);
+	}
 }

@@ -5,10 +5,12 @@ public class Scanner {
 
     private char currentChar;
     private StringBuffer currentSpelling = new StringBuffer();
+    private int position;
 
     public Scanner(SourceFile sourceFile) {
         this.sourceFile = sourceFile;
         currentChar = sourceFile.getSource();
+        position = 0;
     }
 
     private void takeIt() {
@@ -99,6 +101,11 @@ public class Scanner {
         currentSpelling = new StringBuffer("");
         TokenKind kind = scanToken();
 
+        position++;
         return new Token(kind, new String(currentSpelling));
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

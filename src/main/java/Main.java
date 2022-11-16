@@ -1,5 +1,8 @@
 import ast.AST;
+import ast.Program;
+import checker.Checker;
 import compiler.*;
+import encoder.Encoder;
 
 import javax.swing.*;
 
@@ -8,18 +11,30 @@ public class Main {
     private static final String EXAMPLES_DIR = "C:\\Uni\\Semester7\\CMC1\\MC Donald 1";
 
 
-    public static void main( String args[] )
-    {
-        JFileChooser fc = new JFileChooser( EXAMPLES_DIR );
+    public static void main(String args[]) {
+        JFileChooser fc = new JFileChooser(EXAMPLES_DIR);
 
-        if( fc.showOpenDialog( null ) == fc.APPROVE_OPTION ) {
-            SourceFile in = new SourceFile( fc.getSelectedFile().getAbsolutePath() );
-            Scanner s = new Scanner( in );
-            Parser p = new Parser( s );
+        if (fc.showOpenDialog(null) == fc.APPROVE_OPTION) {
+            String sourceName = fc.getSelectedFile().getAbsolutePath();
 
-            AST ast = p.parseProgram();
+            SourceFile in = new SourceFile(sourceName);
 
-            new ASTViewer( ast );
+            Scanner s = new Scanner(in);
+            Parser p = new Parser(s);
+            Checker c = new Checker();
+            Encoder e = new Encoder();
+
+            Program program = (Program) p.parseProgram();
+            c.check(program);
+            e.encode(program);
+
+            String targetName;
+            if (sourceName.endsWith(".txt")) {
+                targetName = sourceName.substring(0, sourceName.length() - 4) + ".tam";
+            } else {
+                targetName = sourceName + ".tam";
+            }
+            e.saveTargetProgram(targetName);
         }
     }
 
