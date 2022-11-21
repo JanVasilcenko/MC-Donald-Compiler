@@ -71,10 +71,12 @@ public class Parser {
                     params = parseIdList();
 
                 accept(RIGHTPAREN);
+                accept(LEFTOPENING);
                 Block block = parseBlock();
                 accept(SERVE);
                 Expression retExp = parseExpression();
                 accept(SEMICOLON);
+                accept(RIGHTOPENING);
 
                 return new FunctionDeclaration(name, params, block, retExp);
 

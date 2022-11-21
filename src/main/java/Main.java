@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Main {
 
-    private static final String EXAMPLES_DIR = "C:\\Uni\\Semester7\\CMC1\\MC Donald 1";
+    private static final String EXAMPLES_DIR = "C:\\Uni\\Semester7\\CMC1\\Hand in";
 
 
     public static void main(String args[]) {
