@@ -21,8 +21,8 @@ public class Address {
     }
 
     public Address(Address address) {
-        this.level = address.level;
-        this.displacement = address.displacement;
+        this.level = address.level + 1;
+        this.displacement = 0;
     }
 
     public String toString() {

@@ -139,7 +139,7 @@ public class Checker implements Visitor {
         } else {
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
             callExpression.functionDeclaration = functionDeclaration;
-            if (functionDeclaration.params.dec.size() != type.size()) {
+            if (functionDeclaration.params != null && functionDeclaration.params.dec.size() != type.size()) {
                 System.out.println("Incorrect number of arguments in call to " + id);
             }
         }

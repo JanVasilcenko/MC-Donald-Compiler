@@ -91,8 +91,9 @@ public class Encoder implements Visitor {
 
         patch(before, nextAdr);
 
-        if (size > 0)
+        if (size > 0) {
             emit(Machine.PUSHop, 0, 0, size);
+        }
 
         block.stats.visit(this, null);
 
@@ -104,13 +105,14 @@ public class Encoder implements Visitor {
     public Object visitDeclarations(Declarations declarations, Object arg) {
         int startDisplacement = ((Address) arg).displacement;
 
-        for (Declaration dec : declarations.dec)
+        for (Declaration dec : declarations.dec) {
             arg = dec.visit(this, arg);
+        }
 
         Address adr = (Address) arg;
         int size = adr.displacement - startDisplacement;
 
-        return new Integer(size);
+        return Integer.valueOf(size);
     }
 
     @Override
@@ -135,7 +137,7 @@ public class Encoder implements Visitor {
         }
 
         functionDeclaration.block.visit(this, new Address(adr, Machine.linkDataSize));
-        functionDeclaration.retExp.visit(this, new Boolean(true));
+        functionDeclaration.retExp.visit(this, Boolean.TRUE);
 
         emit(Machine.RETURNop, 1, 0, size);
 
@@ -154,14 +156,14 @@ public class Encoder implements Visitor {
 
     @Override
     public Object visitExpressionStatement(ExpressionStatement expressionStatement, Object arg) {
-        expressionStatement.exp.visit(this, new Boolean(false));
+        expressionStatement.exp.visit(this, Boolean.FALSE);
 
         return null;
     }
 
     @Override
     public Object visitIfStatement(IfStatement ifStatement, Object arg) {
-        ifStatement.exp.visit(this, new Boolean(true));
+        ifStatement.exp.visit(this, Boolean.TRUE);
 
         int jump1Adr = nextAdr;
         emit(Machine.JUMPIFop, 0, Machine.CBr, 0);
@@ -184,7 +186,7 @@ public class Encoder implements Visitor {
     public Object visitWhileStatement(WhileStatement whileStatement, Object arg) {
         int startAdr = nextAdr;
 
-        whileStatement.exp.visit(this, new Boolean(true));
+        whileStatement.exp.visit(this, Boolean.TRUE);
 
         int jumpAdr = nextAdr;
         emit(Machine.JUMPIFop, 0, Machine.CBr, 0);
@@ -199,7 +201,7 @@ public class Encoder implements Visitor {
 
     @Override
     public Object visitSayStatement(SayStatement sayStatement, Object arg) {
-        sayStatement.exp.visit(this, new Boolean(true));
+        sayStatement.exp.visit(this, Boolean.TRUE);
 
         emit(Machine.CALLop, 0, Machine.PBr, Machine.putintDisplacement);
         emit(Machine.CALLop, 0, Machine.PBr, Machine.puteolDisplacement);
@@ -213,9 +215,9 @@ public class Encoder implements Visitor {
 
         String op = (String) binaryExpression.operator.visit(this, null);
 
-        if (op.equals(":=")) {
-            Address adr = (Address) binaryExpression.operand1.visit(this, new Boolean(false));
-            binaryExpression.operand2.visit(this, new Boolean(true));
+        if (op.equals("=")) {
+            Address adr = (Address) binaryExpression.operand1.visit(this, Boolean.FALSE);
+            binaryExpression.operand2.visit(this, Boolean.TRUE);
 
             int register = displayRegister(currentLevel, adr.level);
             emit(Machine.STOREop, 1, register, adr.displacement);
@@ -304,7 +306,7 @@ public class Encoder implements Visitor {
     @Override
     public Object visitExpList(ExpList expList, Object arg) {
         for (Expression exp : expList.exp)
-            exp.visit(this, new Boolean(true));
+            exp.visit(this, Boolean.TRUE);
 
         return null;
     }
@@ -316,7 +318,7 @@ public class Encoder implements Visitor {
 
     @Override
     public Object visitIntegerLiteral(IntegerLiteral integerLiteral, Object arg) {
-        return new Integer(integerLiteral.spelling);
+        return Integer.valueOf(integerLiteral.spelling);
     }
 
     @Override
