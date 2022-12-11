@@ -61,7 +61,7 @@ public class Token {
         return false;
     }
 
-    private static final TokenKind[] KEYWORDS = { IMLOVINIT, LEFTOPENING, CHEESE, MEAL, BURGER, RIGHTOPENING, SERVE, EATOUT, EATIN, NUGGETS, ICE, SHAKE };
+    private static final TokenKind[] KEYWORDS = { IMLOVINIT, LEFTOPENING, CHEESE, MEAL, BURGER, RIGHTOPENING, SERVE, EATOUT, EATIN, NUGGETS, ICE, SHAKE,HARDOPENINGLEFT,HARDOPENINGRIGHT,HAPPYMEAL };
 
 
     private static final String ASSIGNOPS[] =

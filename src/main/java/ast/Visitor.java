@@ -10,6 +10,7 @@ public interface Visitor {
     Object visitVariableDeclaration(VariableDeclaration variableDeclaration, Object arg);
 
     Object visitFunctionDeclaration(FunctionDeclaration functionDeclaration, Object arg);
+    Object visitArrayDeclaration(ArrayDeclaration arrayDeclaration, Object arg);
 
     Object visitStatements(Statements statements, Object arg);
 
@@ -26,6 +27,7 @@ public interface Visitor {
     Object visitVarExpression(VarExpression varExpression, Object arg);
 
     Object visitCallExpression(CallExpression callExpression, Object arg);
+    Object visitArrayExpression(ArrayExpression arrayExpression, Object arg);
 
     Object visitUnaryExpression(UnaryExpression unaryExpression, Object arg);
 

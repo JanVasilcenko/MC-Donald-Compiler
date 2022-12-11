@@ -65,6 +65,17 @@ public class Checker implements Visitor {
     }
 
     @Override
+    public Object visitArrayDeclaration(ArrayDeclaration arrayDeclaration, Object arg) {
+        String id = (String) arrayDeclaration.name.visit(this, null);
+        identificationTable.enter(id, arrayDeclaration);
+
+        if (arrayDeclaration.integerLiteral != null) {
+            arrayDeclaration.integerLiteral.visit(this, null);
+        }
+        return null;
+    }
+
+    @Override
     public Object visitStatements(Statements statements, Object arg) {
         for (Statement statement : statements.stat) {
             statement.visit(this, null);
@@ -144,6 +155,31 @@ public class Checker implements Visitor {
             }
         }
         return new Type(true);
+    }
+
+    @Override
+    public Object visitArrayExpression(ArrayExpression arrayExpression, Object arg) {
+        String id = (String) arrayExpression.name.visit(this, null);
+
+        Declaration declaration = identificationTable.retrieve(id);
+        if (declaration == null) {
+            System.out.println("Id " + id + " is not declared!");
+        } else if (!(declaration instanceof ArrayDeclaration)) {
+            System.out.println("Id " + id + " is not a variable!");
+        } else {
+            ArrayDeclaration arrayDeclaration = (ArrayDeclaration) declaration;
+            arrayExpression.arrayDeclaration = arrayDeclaration;
+            arrayExpression.setupExpressions();
+            Vector<Type> type = (Vector<Type>) arrayExpression.elements.visit(this, null);
+            if (arrayDeclaration.size < 1 && type.size() < 1) {
+                System.out.println("Array initialized with incorrect size!");
+            }
+            if (arrayExpression.index >= arrayDeclaration.size)
+            {
+                System.out.println("Array index of out bounds");
+            }
+        }
+        return new Type(false);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class Parser {
 
         while (currentTerminal.kind == NUGGETS ||
                 currentTerminal.kind == ICE ||
-                currentTerminal.kind == MEAL) {
+                currentTerminal.kind == MEAL || currentTerminal.kind == HAPPYMEAL) {
             decs.dec.add(parseOneDeclaration());
         }
 
@@ -79,6 +79,16 @@ public class Parser {
                 accept(RIGHTOPENING);
 
                 return new FunctionDeclaration(name, params, block, retExp);
+
+            case HAPPYMEAL:
+                accept(HAPPYMEAL);
+                accept(HARDOPENINGLEFT);
+                IntegerLiteral integerLiteral = parseIntegerLiteral();
+                accept(HARDOPENINGRIGHT);
+                Identifier arrayName = parseIdentifier();
+                accept(SEMICOLON);
+
+                return new ArrayDeclaration(arrayName, Integer.valueOf(integerLiteral.spelling));
 
             default:
                 System.out.println("nuggets, ice or meal expected");
@@ -201,6 +211,16 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
                 Identifier name = parseIdentifier();
+
+                if (currentTerminal.kind == HARDOPENINGLEFT) {
+                    accept(HARDOPENINGLEFT);
+
+                    IntegerLiteral index = parseIntegerLiteral();
+
+                    accept(HARDOPENINGRIGHT);
+
+                    return new ArrayExpression(name, Integer.valueOf(index.spelling));
+                }
 
                 if (currentTerminal.kind == LEFTPAREN) {
                     accept(LEFTPAREN);

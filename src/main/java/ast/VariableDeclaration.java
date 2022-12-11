@@ -9,8 +9,6 @@ public class VariableDeclaration
 	extends Declaration
 {
 	public Identifier id;
-
-	public Address address;
 	
 	
 	public VariableDeclaration( Identifier id )

@@ -61,7 +61,7 @@ public class Scanner {
                 takeIt();
             }
             return TokenKind.INTEGERLITERAL;
-        } else if(currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
+        } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
             takeIt();
             return TokenKind.OPERATOR;
         } else if (currentChar == ',') {
@@ -76,6 +76,12 @@ public class Scanner {
         } else if (currentChar == '<') {
             takeIt();
             return TokenKind.LEFTOPENING;
+        } else if (currentChar == '[') {
+            takeIt();
+            return TokenKind.HARDOPENINGLEFT;
+        } else if (currentChar == ']') {
+            takeIt();
+            return TokenKind.HARDOPENINGRIGHT;
         } else if (currentChar == '>') {
             takeIt();
             return TokenKind.RIGHTOPENING;

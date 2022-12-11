@@ -16,6 +16,9 @@ public enum TokenKind {
     ICE("ice"),
     MEAL("meal"),
     SERVE("serve"),
+    HAPPYMEAL("happymeal"),
+    HARDOPENINGLEFT("["),
+    HARDOPENINGRIGHT("]"),
 
     LEFTOPENING("<"),
     RIGHTOPENING(">"),

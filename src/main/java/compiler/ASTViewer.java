@@ -67,7 +67,8 @@ public class ASTViewer
 			node.add( createTree( ((FunctionDeclaration)ast).params ) );
 			node.add( createTree( ((FunctionDeclaration)ast).block ) );
 			node.add( createTree( ((FunctionDeclaration)ast).retExp ) );
-		} else if( ast instanceof Statements ) {
+		}
+		else if( ast instanceof Statements ) {
 			node.setUserObject( "Statements" );
 			
 			for( Statement s: ((Statements)ast).stat )

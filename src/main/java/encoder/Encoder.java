@@ -147,6 +147,30 @@ public class Encoder implements Visitor {
     }
 
     @Override
+    public Object visitArrayDeclaration(ArrayDeclaration arrayDeclaration, Object arg) {
+        arrayDeclaration.address = new Address(currentLevel, nextAdr);
+
+//        ++currentLevel;
+//
+//        Address adr = new Address((Address) arg);
+//
+//        int size = 0;
+//        if (arrayDeclaration.integerLiteral != null) {
+//            for (int i = 0; i < arrayDeclaration.size; i++) {
+//                size = ((Integer) arrayDeclaration.integerLiteral.visit(this, adr)).intValue();
+//                arrayDeclaration.integerLiteral.visit(this, new Address(adr, size));
+//            }
+//        }
+        for (int i = 0; i < arrayDeclaration.size; i++) {
+            arrayDeclaration.integerLiteral.dec.get(i).visit(this, new Address(currentLevel, nextAdr+i));
+        }
+
+//        currentLevel--;
+
+        return arg;
+    }
+
+    @Override
     public Object visitStatements(Statements statements, Object arg) {
         for (Statement stat : statements.stat)
             stat.visit(this, null);
@@ -216,14 +240,26 @@ public class Encoder implements Visitor {
         String op = (String) binaryExpression.operator.visit(this, null);
 
         if (op.equals("=")) {
-            Address adr = (Address) binaryExpression.operand1.visit(this, Boolean.FALSE);
-            binaryExpression.operand2.visit(this, Boolean.TRUE);
+            if (binaryExpression.operand1 instanceof ArrayExpression) {
+                Address address = (Address) binaryExpression.operand1.visit(this, Boolean.FALSE);
+                binaryExpression.operand2.visit(this, Boolean.TRUE);
 
-            int register = displayRegister(currentLevel, adr.level);
-            emit(Machine.STOREop, 1, register, adr.displacement);
+                int registerNew = displayRegister(currentLevel, address.level);
+                emit(Machine.STOREop, 1, registerNew, address.displacement);
 
-            if (valueNeeded)
-                emit(Machine.LOADop, 1, register, adr.displacement);
+                if (valueNeeded) {
+                    emit(Machine.LOADop, 1, registerNew, address.displacement);
+                }
+            } else {
+                Address adr = (Address) binaryExpression.operand1.visit(this, Boolean.FALSE);
+                binaryExpression.operand2.visit(this, Boolean.TRUE);
+
+                int register = displayRegister(currentLevel, adr.level);
+                emit(Machine.STOREop, 1, register, adr.displacement);
+
+                if (valueNeeded)
+                    emit(Machine.LOADop, 1, register, adr.displacement);
+            }
         } else {
             binaryExpression.operand1.visit(this, arg);
             binaryExpression.operand2.visit(this, arg);
@@ -276,6 +312,29 @@ public class Encoder implements Visitor {
             emit(Machine.POPop, 0, 0, 1);
 
         return null;
+    }
+
+    @Override
+    public Object visitArrayExpression(ArrayExpression arrayExpression, Object arg) {
+        boolean valueNeeded = ((Boolean) arg).booleanValue();
+
+        //arrayExpression.elements.visit(this, null);
+
+
+
+        //Address address = arrayExpression.arrayDeclaration.address;
+        //arrayExpression.arrayDeclaration.integerLiteral.visit(this, address);
+        //Address address = arrayExpression.arrayDeclaration.integerLiteral.dec.get(arrayExpression.index).address;
+
+        //int register = displayRegister(currentLevel, address.level);
+        //        emit(Machine.LOADLop, register, Machine.CB, address.displacement);
+
+        //        if (!valueNeeded)
+        //            emit(Machine.POPop, 0, 0, 1);
+
+        //return address;
+        return arrayExpression.elements.exp.elementAt(arrayExpression.index).visit(this,true);
+//        return arrayExpression.arrayDeclaration.integerLiteral.dec.get(arrayExpression.index).address;
     }
 
     @Override

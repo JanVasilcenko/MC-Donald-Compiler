@@ -2,9 +2,6 @@
  
 package ast;
 
-
-import encoder.Address;
-
 public class FunctionDeclaration
 	extends Declaration
 {
@@ -12,8 +9,6 @@ public class FunctionDeclaration
 	public Declarations params;
 	public Block block;
 	public Expression retExp;
-	public Address address;
-	
 	
 	public FunctionDeclaration( Identifier name, Declarations params,
 	                            Block block, Expression retExp )
