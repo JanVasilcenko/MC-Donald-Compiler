@@ -150,22 +150,9 @@ public class Encoder implements Visitor {
     public Object visitArrayDeclaration(ArrayDeclaration arrayDeclaration, Object arg) {
         arrayDeclaration.address = new Address(currentLevel, nextAdr);
 
-//        ++currentLevel;
-//
-//        Address adr = new Address((Address) arg);
-//
-//        int size = 0;
-//        if (arrayDeclaration.integerLiteral != null) {
-//            for (int i = 0; i < arrayDeclaration.size; i++) {
-//                size = ((Integer) arrayDeclaration.integerLiteral.visit(this, adr)).intValue();
-//                arrayDeclaration.integerLiteral.visit(this, new Address(adr, size));
-//            }
-//        }
         for (int i = 0; i < arrayDeclaration.size; i++) {
             arrayDeclaration.integerLiteral.dec.get(i).visit(this, new Address(currentLevel, nextAdr+i));
         }
-
-//        currentLevel--;
 
         return arg;
     }
@@ -318,23 +305,7 @@ public class Encoder implements Visitor {
     public Object visitArrayExpression(ArrayExpression arrayExpression, Object arg) {
         boolean valueNeeded = ((Boolean) arg).booleanValue();
 
-        //arrayExpression.elements.visit(this, null);
-
-
-
-        //Address address = arrayExpression.arrayDeclaration.address;
-        //arrayExpression.arrayDeclaration.integerLiteral.visit(this, address);
-        //Address address = arrayExpression.arrayDeclaration.integerLiteral.dec.get(arrayExpression.index).address;
-
-        //int register = displayRegister(currentLevel, address.level);
-        //        emit(Machine.LOADLop, register, Machine.CB, address.displacement);
-
-        //        if (!valueNeeded)
-        //            emit(Machine.POPop, 0, 0, 1);
-
-        //return address;
         return arrayExpression.elements.exp.elementAt(arrayExpression.index).visit(this,true);
-//        return arrayExpression.arrayDeclaration.integerLiteral.dec.get(arrayExpression.index).address;
     }
 
     @Override
