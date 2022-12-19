@@ -61,7 +61,7 @@ public class Scanner {
                 takeIt();
             }
             return TokenKind.INTEGERLITERAL;
-        } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
+        } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/' || currentChar == 'A' || currentChar == 'O') {
             takeIt();
             return TokenKind.OPERATOR;
         } else if (currentChar == ',') {

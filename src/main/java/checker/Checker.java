@@ -187,8 +187,8 @@ public class Checker implements Visitor {
         unaryExpression.operand.visit(this, null);
         String operator = (String) unaryExpression.operator.visit(this, null);
 
-        if (!operator.equals("+") && !operator.equals("-")) {
-            System.out.println("Only + or - is allowed as unary operator");
+        if (!operator.equals("+") && !operator.equals("-") && !operator.equals("A") && !operator.equals("O")) {
+            System.out.println("Only +, -, A, O is allowed as unary operator");
         }
         return new Type(true);
     }
