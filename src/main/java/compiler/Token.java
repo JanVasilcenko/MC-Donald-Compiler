@@ -43,6 +43,14 @@ public class Token {
             return false;
     }
 
+    public boolean isBooleanOperator()
+    {
+        if(kind == OPERATOR )
+            return containsOperator( spelling, BOOLOPS );
+        else
+            return false;
+    }
+
     public boolean isMulOperator()
     {
         if( kind == OPERATOR )
@@ -63,6 +71,11 @@ public class Token {
 
     private static final TokenKind[] KEYWORDS = { IMLOVINIT, LEFTOPENING, CHEESE, MEAL, BURGER, RIGHTOPENING, SERVE, EATOUT, EATIN, NUGGETS, ICE, SHAKE,HARDOPENINGLEFT,HARDOPENINGRIGHT,HAPPYMEAL };
 
+    private static final String BOOLOPS[] =
+            {
+                    "A",
+                    "O"
+            };
 
     private static final String ASSIGNOPS[] =
             {
